@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('should allow me to add todo items', async ({ page }) => {
-  // Create 1st todo.
+  // Create a todo
   await page.locator('.new-todo').fill('buy some cheese');
   await page.locator('.new-todo').press('Enter');
 
