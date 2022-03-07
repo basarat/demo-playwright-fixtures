@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-test('should allow me to add todo items', async ({ page }) => {
-  // Navigate
+test.beforeEach(async ({ page }) => {
   await page.goto('https://demo.playwright.dev/todomvc');
+});
 
+test('should allow me to add todo items', async ({ page }) => {
   // Create 1st todo.
   await page.locator('.new-todo').fill('buy some cheese');
   await page.locator('.new-todo').press('Enter');
