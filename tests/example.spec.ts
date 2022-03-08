@@ -11,6 +11,16 @@ test('should allow me to add todo items', async ({ page }) => {
 
   // Make sure the list has the todo item
   await expect(page.locator('.view label')).toHaveText([
-    'buy some cheeze'
+    'buy some cheese',
+  ]);
+
+  // Create 2nd todo.
+  await page.locator('.new-todo').fill('feed the cat');
+  await page.locator('.new-todo').press('Enter');
+
+  // Make sure the list now has two todo items.
+  await expect(page.locator('.view label')).toHaveText([
+    'buy some cheese',
+    'feed the cat',
   ]);
 });
