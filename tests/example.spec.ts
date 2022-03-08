@@ -1,25 +1,24 @@
 import { test, expect } from '@playwright/test';
+import { TodoPage } from './todoPage';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://demo.playwright.dev/todomvc');
+  await new TodoPage(page).goto();
 });
 
 test('should allow me to add todo items', async ({ page }) => {
+  const todoPage = new TodoPage(page);
+
   // Create a todo
-  await page.locator('.new-todo').fill('buy some cheese');
-  await page.locator('.new-todo').press('Enter');
+  await todoPage.addTodo('buy some cheese');
 
   // Make sure the list has the todo item
-  await expect(page.locator('.view label')).toHaveText([
-    'buy some cheese',
-  ]);
+  await todoPage.expectTodos(['buy some cheese']);
 
   // Create 2nd todo.
-  await page.locator('.new-todo').fill('feed the cat');
-  await page.locator('.new-todo').press('Enter');
+  await todoPage.addTodo('feed the cat');
 
   // Make sure the list now has two todo items.
-  await expect(page.locator('.view label')).toHaveText([
+  await todoPage.expectTodos([
     'buy some cheese',
     'feed the cat',
   ]);
